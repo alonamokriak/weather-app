@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet" />
+    <script src="script.js" defer></script>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__container">
+          <h1 class="header__title">Weather in your city</h1>
+          <p class="header__text">Find out the current weather anywhere in the world</p>
+          <form class="header__form form-search">
+            <div class="form-search__field">
+              <input id="searchInput" class="form-search__input" type="text" placeholder="Enter city..." />
+              <ul id="cityOptions" class="form-search__list"></ul>
+            </div>
+
+            <button id="searchButton" class="form-search__button">Search</button>
+          </form>
+        </div>
+      </header>
+      <main class="page">
+        <section class="weather">
+          <div class="weather__container">
+            <div class="weather__content">
+              <div class="weather__main">
+                <h3 class="weather__city" id="cityName">Kiev, UA</h3>
+                <time class="weather__time" id="currentDate" datetime="#">May 25, 2025</time>
+                <div class="weather__info info-weather">
+                  <img class="info-weather__image" src="assets/clear-day.svg" id="weatherIcon" alt="icon-weather" />
+                  <div class="info-weather__status">
+                    <span class="info-weather__temperature" id="mainTemperature">22°C</span>
+                    <span class="info-weather__text" id="weatherStatus">Partly cloudy</span>
+                  </div>
+                </div>
+              </div>
+              <div class="weather__stats">
+                <div class="weather__param">
+                  <span class="weather__param-label">Feels like</span>
+                  <span class="weather__param-value" id="feelTemperature">23°C</span>
+                </div>
+                <div class="weather__param">
+                  <span class="weather__param-label">Humidity</span>
+                  <span class="weather__param-value" id="humidity">45 %</span>
+                </div>
+                <div class="weather__param">
+                  <span class="weather__param-label">Winds</span>
+                  <span class="weather__param-value" id="winds">5 m/s</span>
+                </div>
+                <div class="weather__param">
+                  <span class="weather__param-label">Pressure</span>
+                  <span class="weather__param-value" id="pressure">1015 P</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="detailed-weather">
+          <div class="detailed-weather__container">
+            <div class="detailed-weather__content">
+              <h2 class="detailed-weather__title">Details</h2>
+              <article class="detailed-weather__card card" data-slot="Morning">
+                <h3 class="card__title">Morning</h3>
+                <img class="card__icon" src="assets/mostly-clear-day.svg" alt="weather icon" />
+                <span class="card__temperature">18°C</span>
+                <span class="card__status">Sunny</span>
+              </article>
+              <article class="detailed-weather__card card" data-slot="Afternoon">
+                <h3 class="card__title">Afternoon</h3>
+                <img class="card__icon" src="assets/clear-day.svg" alt="weather icon" />
+                <span class="card__temperature">18°C</span>
+                <span class="card__status">Sunny</span>
+              </article>
+              <article class="detailed-weather__card card" data-slot="Evening">
+                <h3 class="card__title">Evening</h3>
+                <img class="card__icon" src="assets/mostly-clear-day.svg" alt="weather icon" />
+                <span class="card__temperature">18°C</span>
+                <span class="card__status">Sunny</span>
+              </article>
+              <article class="detailed-weather__card card" data-slot="Night">
+                <h3 class="card__title">Night</h3>
+                <img class="card__icon" src="assets/clear-night.svg" alt="weather icon" />
+                <span class="card__temperature">18°C</span>
+                <span class="card__status">Sunny</span>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <div class="footer__container">
+          <p class="footer__text">
+            Data presented by
+            <a class="footer__link" href="https://open-meteo.com" target="_blank">Open-Meteo</a>
+          </p>
+          <span>&copy; Weather App</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
