@@ -42,6 +42,33 @@ form.addEventListener("submit", (event) => {
   searchCities(city);
 });
 
+window.addEventListener("load", getCurrentLocationWeather);
+
+function getCurrentLocationWeather() {
+  if (!navigator.geolocation) {
+    showError("Geolocation is not supported");
+    return;
+  }
+
+  cityElement.textContent = "Detecting your location...";
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const location = {
+        name: "Your location",
+        country_code: "",
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      };
+
+      getWeatherByLocation(location);
+    },
+    () => {
+      showError("Location access denied");
+    }
+  );
+}
+
 async function searchCities(city) {
   try {
     const locations = await getCoordinates(city);
@@ -123,7 +150,7 @@ function renderCurrentWeather(current, location) {
   statusElement.textContent = weatherLabel;
   weatherIcon.src = getWeatherIconPath(current.weather_code);
   weatherIcon.alt = weatherLabel;
-  cityElement.textContent = `${location.name}, ${location.country_code}`;
+  cityElement.textContent = [location.name, location.country_code].filter(Boolean).join(", ");
   dateElement.textContent = formatDate(current.time);
   dateElement.setAttribute("datetime", current.time);
 
