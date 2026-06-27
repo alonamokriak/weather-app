@@ -214,3 +214,31 @@ function getWeatherIconPath(code) {
 
   return "assets/clear-day.svg";
 }
+
+window.addEventListener("load", getCurrentLocationWeather);
+
+function getCurrentLocationWeather() {
+  if (!navigator.geolocation) {
+    showError("Geolocation is not supported");
+    return;
+  }
+
+  cityElement.textContent = "Detecting your location...";
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const location = {
+        name: "Your location",
+        country_code: "",
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      };
+
+      selectedLocation = location;
+      getWeatherByLocation(location);
+    },
+    () => {
+      showError("Location access denied");
+    }
+  );
+}
