@@ -16,8 +16,10 @@ const pressureElement = document.getElementById("pressure");
 const cityOptionsElement = document.getElementById("cityOptions");
 
 let searchTimeoutId;
+let selectedLocation = null;
 
 searchInput.addEventListener("input", () => {
+  selectedLocation = null;
   clearTimeout(searchTimeoutId);
 
   const city = searchInput.value.trim();
@@ -39,35 +41,12 @@ form.addEventListener("submit", (event) => {
 
   if (!city) return;
 
-  searchCities(city);
-});
-
-window.addEventListener("load", getCurrentLocationWeather);
-
-function getCurrentLocationWeather() {
-  if (!navigator.geolocation) {
-    showError("Geolocation is not supported");
-    return;
+  if (selectedLocation) {
+    getWeatherByLocation(selectedLocation);
+  } else {
+    searchCities(city);
   }
-
-  cityElement.textContent = "Detecting your location...";
-
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const location = {
-        name: "Your location",
-        country_code: "",
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      };
-
-      getWeatherByLocation(location);
-    },
-    () => {
-      showError("Location access denied");
-    }
-  );
-}
+});
 
 async function searchCities(city) {
   try {
@@ -128,7 +107,7 @@ function renderCityOptions(locations) {
     button.addEventListener("click", () => {
       searchInput.value = `${location.name}, ${location.country_code}`;
       cityOptionsElement.innerHTML = "";
-
+      selectedLocation = location;
       getWeatherByLocation(location);
     });
 
@@ -150,7 +129,7 @@ function renderCurrentWeather(current, location) {
   statusElement.textContent = weatherLabel;
   weatherIcon.src = getWeatherIconPath(current.weather_code);
   weatherIcon.alt = weatherLabel;
-  cityElement.textContent = [location.name, location.country_code].filter(Boolean).join(", ");
+  cityElement.textContent = `${location.name}, ${location.country_code}`;
   dateElement.textContent = formatDate(current.time);
   dateElement.setAttribute("datetime", current.time);
 
